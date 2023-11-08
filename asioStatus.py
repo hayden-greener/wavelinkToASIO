@@ -1,24 +1,45 @@
-import sounddevice as sd
+import pyaudio
 
 def get_asio_device_settings(device_name):
-    for device in sd.query_devices():
-        if device['name'] == device_name:
-            return device
-    return None
+    """
+    Prints the settings for the specified ASIO device.
+    
+    :param device_name: The name of the ASIO device to retrieve settings for.
+    """
+    p = pyaudio.PyAudio()
+    
+    try:
+        # Find the device by name
+        device_index = None
+        for i in range(p.get_device_count()):
+            dev_info = p.get_device_info_by_index(i)
+            if dev_info.get('name') == device_name:
+                device_index = i
+                break
+        
+        if device_index is None:
+            print(f"Device named '{device_name}' not found.")
+            return
+        
+        # Get device info
+        device_info = p.get_device_info_by_index(device_index)
+        
+        # Print device info
+        print(f"Settings for '{device_name}':")
+        print(f"  Index: {device_index}")
+        print(f"  Default Sample Rate: {device_info['defaultSampleRate']}")
+
+        # Print additional settings including current sample rate and calculated preferred buffer size
+        current_sample_rate = device_info['defaultSampleRate']
+        print(f"  Current Sample Rate: {current_sample_rate}")
+
+        # Calculate the preferred buffer size based on default low output latency
+        preferred_buffer_size = int(device_info['defaultLowOutputLatency'] * current_sample_rate)
+        print(f"  Preferred ASIO Buffer Size: {preferred_buffer_size}")
+        
+    finally:
+        p.terminate()
 
 if __name__ == "__main__":
-    device_name = "Solid State Logic ASIO Driver"
-    device_info = get_asio_device_settings(device_name)
-    
-    if device_info:
-        print(f"Settings for {device_name}:")
-        print(f"Sample Rate: {device_info['default_samplerate']} Hz")
-        print(f"Max Input Channels: {device_info['max_input_channels']}")
-        print(f"Max Output Channels: {device_info['max_output_channels']}")
-        print(f"Default Low Input Latency: {device_info['default_low_input_latency']:.6f} sec")
-        print(f"Default Low Output Latency: {device_info['default_low_output_latency']:.6f} sec")
-        print(f"Default High Input Latency: {device_info['default_high_input_latency']:.6f} sec")
-        print(f"Default High Output Latency: {device_info['default_high_output_latency']:.6f} sec")
-    else:
-        print(f"Could not find device named {device_name}.")
-
+    asio_device_name = "Solid State Logic ASIO Driver"
+    get_asio_device_settings(asio_device_name)

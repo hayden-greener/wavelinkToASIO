@@ -9,12 +9,25 @@ This utility significantly reduces latency in the Elgato WaveLink software, maki
 #### Start Script
 
 ```http
-  python main.py "256"
+  python main.py
 ```
 
-Replace 256 with the current "Preferred ASIO Buffer Size" found in your Audio Interface's Control Panel.
+The script default is to connect the Elgato WaveLink software to a SSL 2 interface. To use a different ASIO device, When it doesnt find the SSL it will then list out other ASIO devices copy it over in to the main.py and you should be good.
+Output
 
-The script default is to connect the Elgato WaveLink software to a SSL 2 interface. To use a different ASIO device, run main.py without an argument. This will prompt you to save the name of the ASIO device used. Depending on your setup, further adjustments may be necessary.
+```http
+D:\GitLocal\wavelinkToASIO>python main.py
+ERROR:root:Could not find the specified devices. Available ASIO devices are:
+INFO:root:Device Index: 34, Device Name: Solid State Logic ASIO Driver
+
+D:\GitLocal\wavelinkToASIO>
+```
+
+then for the main.py you would set...
+
+```http
+  default_output_device_name = "Solid State Logic ASIO Driver"
+```
 
 ## Acknowledgements
 
@@ -44,5 +57,4 @@ Standard PyAudio lacks ASIO support. For wavelinkToAsio to function, you must ei
 
 ## Roadmap
 
-- Add support for finding other ASIO devices
-- MAJOR, Add support for finding the prefered/currently set ASIO buffer size. since right now it has problems with connecting if another device is using the ASIO and the other program tries to set a diffrent buffer size.
+- Add Kernal Streaming Support, right now its limited to windows WASAPI which is still fairly fast. But to get a zero overflow/underflow playback im having to play at 512 samples. I can do lower (even down to 64) but i hear maybe every few seconds underflow problems. Hope that KS would fix this since i've had good experinces in the past with KS latency.
