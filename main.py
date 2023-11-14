@@ -2,7 +2,6 @@ import pyaudio
 import sys
 import logging
 import time
-import argparse
 
 logging.basicConfig(level=logging.INFO)
 
@@ -12,8 +11,6 @@ default_input_device_name = "Wave Link Monitor (Elgato Virtual Audio)" # "Wave L
 default_output_device_name = "Solid State Logic ASIO Driver"
 # Set your host API name filter here
 host_api_name_filter = "Windows WASAPI" # "Windows WDM-KS"
-# Define a list of valid buffer sizes for your ASIO device
-valid_buffer_sizes = [16, 32, 64, 128, 256, 512, 1024, 2048]
 # --- End Configuration Section ---
 
 def find_device_index(p, device_name, host_api_name_filter=None):
