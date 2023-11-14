@@ -125,7 +125,7 @@ def loop_audio(p, input_device_index, output_device_index):
     # Initial buffer size calculation
     buffer_size = calculate_buffer_size(p, output_device_index)
     settings = {
-        "format": pyaudio.paInt24,
+        "format": pyaudio.paInt16,
         "channels": 2,
         "rate": 48000,
         "frames_per_buffer": buffer_size

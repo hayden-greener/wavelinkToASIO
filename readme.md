@@ -55,6 +55,19 @@ Standard PyAudio lacks ASIO support. For wavelinkToAsio to function, you must ei
    python -m pip install PyAudio-0.2.11-cp311-cp311-win_amd64.whl
    ```
 
-## Roadmap
+## Roadmap and Performance Updates
 
-- Add Kernal Streaming Support, right now its limited to windows WASAPI which is still fairly fast. But to get a zero overflow/underflow playback im having to play at 512 samples. I can do lower (even down to 64) but i hear maybe every few seconds underflow problems. Hope that KS would fix this since i've had good experinces in the past with KS latency.
+### Kernel Streaming Support
+- **Current**: Limited to Windows WASAPI (fairly fast).
+- **Goal**: Add Kernel Streaming (KS) support for improved latency.
+- **Note**: Experiencing underflow problems at lower sample sizes (16). Hoping KS implementation will resolve this.
+
+### Frame Timing Information (Recorded at 120fps externally)
+- **Wavelink**: 21 frames, ~175 ms
+- **512 off**: 17 frames, ~141.67 ms
+- **512 on**: 13 frames, ~108.33 ms
+- **32 off**: 13 frames, ~108.33 ms
+- **32 on**: 7 frames, ~58.33 ms
+- **Control**: 5 frames, ~41.67 ms
+- **Enabling 'Safe Mode' unexpectedly boosts performance and reduces latency?**
+- **Measured on Win11 with I7 13700k an interface SSL2 with v5.58.05 drivers**
