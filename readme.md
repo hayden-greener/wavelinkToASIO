@@ -52,7 +52,7 @@ Standard PyAudio lacks ASIO support. For wavelinkToAsio to function, you must ei
 3. Use pip to install the downloaded file with the following command, replacing `PyAudio‑0.2.11‑cp311‑cp311‑win_amd64.whl` with the name of your downloaded file:
 
    ```sh
-   python -m pip install PyAudio‑0.2.11‑cp311‑cp311‑win_amd64.whl --upgrade
+   python -m pip install PyAudio-0.2.11-cp311-cp311-win_amd64.whl
    ```
 
 ## Roadmap
