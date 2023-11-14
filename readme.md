@@ -62,7 +62,7 @@ Standard PyAudio lacks ASIO support. For wavelinkToAsio to function, you must ei
 - **Goal**: Add Kernel Streaming (KS) support for improved latency.
 - **Note**: Experiencing underflow problems at lower sample sizes (16). Hoping KS implementation will resolve this.
 
-### Frame Timing Information (Recorded at 120fps externally)
+### Frame Timing Information (Measured at 120fps externally)
 - **Wavelink**: 21 frames, ~175 ms
 - **512 off**: 17 frames, ~141.67 ms
 - **512 on**: 13 frames, ~108.33 ms
