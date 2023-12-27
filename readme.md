@@ -8,14 +8,14 @@ This utility significantly reduces latency in the Elgato WaveLink software, maki
 
 #### Start Script
 
-```http
+```python
   python main.py
 ```
 
 The script default is to connect the Elgato WaveLink software to a SSL 2 interface. To use a different ASIO device, When it doesnt find the SSL it will then list out other ASIO devices copy it over in to the main.py and you should be good.
 Output
 
-```http
+```python
 D:\GitLocal\wavelinkToASIO>python main.py
 ERROR:root:Could not find the specified devices. Available ASIO devices are:
 INFO:root:Device Index: 34, Device Name: Solid State Logic ASIO Driver
@@ -25,7 +25,7 @@ D:\GitLocal\wavelinkToASIO>
 
 then for the main.py you would set...
 
-```http
+```python
   default_output_device_name = "Solid State Logic ASIO Driver"
 ```
 
